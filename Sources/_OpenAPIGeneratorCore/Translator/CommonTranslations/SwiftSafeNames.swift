@@ -57,6 +57,10 @@ fileprivate extension String {
             } else {
                 sanitizedScalars.append("_")
                 if let entityName = Self.specialCharsMap[scalar] {
+                    if entityName == "_" {
+                        // Early return if replacement is "_"
+                        continue
+                    }
                     for char in entityName.unicodeScalars {
                         sanitizedScalars.append(char)
                     }
@@ -172,7 +176,7 @@ fileprivate extension String {
         "+": "plus",
         ",": "comma",
         "-": "hyphen",
-        ".": "period",
+        ".": "_",
         "/": "sol",
         ":": "colon",
         ";": "semi",
